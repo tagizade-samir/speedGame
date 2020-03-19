@@ -1,3 +1,5 @@
+
+
 *{
     box-sizing: border-box;
 }
@@ -11,6 +13,8 @@ body{
     border: 10px solid black;
     padding: 100px 0;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 .row{
     width: 500px;
@@ -32,6 +36,12 @@ body{
 .line{
     height: 40px;
     width: 25px;
+    justify-content: center;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
 }
 .lineOne{
     background-color: cadetblue;
@@ -87,4 +97,18 @@ body{
 .restartGame:hover{
     cursor: pointer;
     background-color: dimgray;
+}
+.gameSettings{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.colors{
+    max-width: 80%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.colors input{
+    margin-right: 10px;
 }

@@ -6,36 +6,29 @@
     <title>Speed Game</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="gameScreen" id="gameScreen">
-        <div class="gameSettings" id="gameSettings">
-            <div class="colors">
-                First player: <input type="color" id="colorLineOne">
-                Second player: <input type="color" id="colorLineTwo">
-                Third player: <input type="color" id="colorLineThree">
-                Fourth player: <input type="color" id="colorLineFour">
-            </div>
-        </div>
 
         <div class="gameRows" id="gameRows">
             <div id="rowOne" class="row">
-                <div id="lineOne" class="line lineOne"></div>
+                <div id="playerOne" class="player playerOne"></div>
             </div>
             <div id="rowTwo" class="row">
-                <div id="lineTwo" class="line lineTwo"></div>
+                <div id="playerTwo" class="player playerTwo"></div>
             </div>
             <div id="rowThree" class="row">
-                <div id="lineThree" class="line lineThree"></div>
+                <div id="playerThree" class="player playerThree"></div>
             </div>
             <div id="rowFour" class="row">
-                <div id="lineFour" class="line lineFour"></div>
+                <div id="playerFour" class="player playerFour"></div>
             </div>
         </div>
 
         <button class="startGame" id="startGame" onclick="startGame">Start</button>
         <button class="restartGame" id="restartGame" onclick="restartGame">Restart</button>
-        <button class="goGame" id="goGame" onclick="goGame">Go</button>
     </div>
 </body>
+
     <script type="text/javascript" src="script/index.js"></script>
 </html>

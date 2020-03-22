@@ -1,71 +1,110 @@
-let rowOne = document.getElementById('rowOne'), rowTwo = document.getElementById('rowTwo'), rowThree = document.getElementById('rowThree'), 
-rowFour = document.getElementById('rowFour')
-
-let lineOne = document.getElementById('lineOne'), lineTwo = document.getElementById('lineTwo'), lineThree = document.getElementById('lineThree'), 
-lineFour = document.getElementById('lineFour')
-
-let gameRows = document.getElementById('gameRows')
-gameRows.style.display = 'none'
-
-let startGameBtn = document.getElementById('startGame'), restartGameBtn = document.getElementById('restartGame'), goGameBtn = document.getElementById('goGame')
-
-let finish = 480
-let speedOne = Math.floor(Math.random() * 21) + 1, speedTwo = Math.floor(Math.random() * 21) + 1, speedThree = Math.floor(Math.random() * 21) + 1, 
-speedFour = Math.floor(Math.random() * 21) + 1
-
-lineOne.innerText = speedOne
-lineTwo.innerText = speedTwo
-lineThree.innerText = speedThree
-lineFour.innerText = speedFour
-
-let lineOnePosition = 0, lineTwoPosition = 0, lineThreePosition = 0, lineFourPosition = 0
-
-let maxResult = 0
-
-let winner = ""
-
-
-
-startGame.onclick = function startGame () {
-    startGameBtn.style.display = 'none'
-    restartGameBtn.style.display = 'block'
-    
-    setTimeout(function() {
-        lineOnePosition += speedOne
-        lineTwoPosition += speedTwo
-        lineThreePosition += speedThree
-        lineFourPosition += speedFour
-
-        lineOne.style.marginLeft = `${lineOnePosition}px`
-        lineTwo.style.marginLeft = `${lineTwoPosition}px`
-        lineThree.style.marginLeft = `${lineThreePosition}px`
-        lineFour.style.marginLeft = `${lineFourPosition}px`
-
-        maxResult = Math.max(lineOnePosition, lineTwoPosition, lineThreePosition, lineFourPosition)
-
-        if((maxResult + 25) < finish){
-            startGame()
-        } else if ((maxResult + 25) >= finish) {
-            switch (maxResult) {
-                case lineOnePosition:
-                    winner = "Number 1"
-                    break
-                case lineTwoPosition:
-                    winner = "Number 2"
-                    break
-                case lineThreePosition:
-                    winner = "Number 3"
-                    break
-                case lineFourPosition:
-                    winner = "Number 4"
-                    break
-            }
-
-            console.log(`The winner is line ${winner}`)
-        }
-    }, 100)
+let screen = {
+    gameScreen: document.getElementById('gameScreen'),
+    gameRows: document.getElementById('gameRows'),
+    players: document.getElementsByClassName('player')
 }
 
-restartGameBtn.onclick = function restartGame () {
+gameRows.style.maxWidth = `${floorHundred(screen.gameScreen.clientWidth * 0.9)}px`
+
+setWidth(screen.players, floorTen(screen.gameRows.clientWidth * 0.05))
+
+function setWidth (array, amount) {
+    for (let i = 0; i < array.length; i++) {
+        array[i].style.maxWidth = `${amount}px`
+    }
+}
+
+function floorHundred (number) {
+    return number = Math.floor(number * 0.01) * 100
+}
+
+function floorTen (number) {
+    return number = Math.floor(number * 0.1) * 10
+}
+
+let players = {
+    playerOne: document.getElementById('playerOne'),
+    playerTwo: document.getElementById('playerTwo'),
+    playerThree: document.getElementById('playerThree'),
+    playerFour: document.getElementById('playerFour')
+}
+
+let buttons = {
+    startGameBtn: document.getElementById('startGame'),
+    restartGameBtn: document.getElementById('restartGame')
+}
+
+let settings = {
+    finish: screen.gameRows.clientWidth - 20,
+    maxSpeed: screen.gameRows.clientWidth * 0.04,
+    minSpeed: screen.gameRows.clientWidth * 0.01
+}
+
+let speed = {
+    speedOne: Math.floor(Math.random() * settings.maxSpeed) + settings.minSpeed,
+    speedTwo: Math.floor(Math.random() * settings.maxSpeed) + settings.minSpeed,
+    speedThree: Math.floor(Math.random() * settings.maxSpeed) + settings.minSpeed,
+    speedFour: Math.floor(Math.random() * settings.maxSpeed) + settings.minSpeed
+}
+
+
+players.playerOne.innerText = speed.speedOne
+players.playerTwo.innerText = speed.speedTwo
+players.playerThree.innerText = speed.speedThree
+players.playerFour.innerText = speed.speedFour
+
+let playerOnePosition = 0, playerTwoPosition = 0, playerThreePosition = 0, playerFourPosition = 0
+
+// let positions = {
+//     playerOnePosition = 0,
+//     playerTwoPosition = 0,
+//     playerThreePosition = 0,
+//     playerFourPosition = 0
+// }
+
+let maxResult = 0
+let winner = ""
+
+buttons.startGameBtn.onclick = function startGame () {
+        buttons.startGameBtn.style.display = 'none'
+        buttons.restartGameBtn.style.display = 'block'
+        
+        setTimeout(function() {
+            playerOnePosition += speed.speedOne
+            playerTwoPosition += speed.speedTwo
+            playerThreePosition += speed.speedThree
+            playerFourPosition += speed.speedFour
+    
+            players.playerOne.style.marginLeft = `${playerOnePosition}px`
+            players.playerTwo.style.marginLeft = `${playerTwoPosition}px`
+            players.playerThree.style.marginLeft = `${playerThreePosition}px`
+            players.playerFour.style.marginLeft = `${playerFourPosition}px`
+    
+            maxResult = Math.max(playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition)
+    
+            if(maxResult < settings.finish - (screen.gameRows.clientWidth * 0.1)){
+                startGame()
+            } else if (maxResult >= settings.finish - (screen.gameRows.clientWidth * 0.1)) {
+                switch (maxResult) {
+                    case playerOnePosition:
+                        winner = "Number 1"
+                        break
+                    case playerTwoPosition:
+                        winner = "Number 2"
+                        break
+                    case playerThreePosition:
+                        winner = "Number 3"
+                        break
+                    case playerFourPosition:
+                        winner = "Number 4"
+                        break
+                }
+    
+                alert(`The winner is line ${winner}`)
+            }
+        }, 50)
+    }
+
+    buttons.restartGameBtn.onclick = function restartGame () {
     location.reload()
 }
